@@ -24,6 +24,14 @@ pipeline{
                 sh "docker build . -t nomanakram29/test-java-application:${DOCKER_TAG}"
             }
         }
+        stage('Docker Push Image'){
+            steps{
+                withCredentials([string(credentialsId: 'dockerHubCred', variable: 'dokcerHubPWD')]) {
+                    sh "docker login -u nomanakram29 -p ${dokcerHubPWD}"
+                }
+                sh "docker push nomanakram29/test-java-application:${DOCKER_TAG}"
+            }
+        }
     }
 
 }
