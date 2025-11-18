@@ -1,15 +1,15 @@
 ---
-- hosts: development-servers    # fixed: developement → development
+- hosts: development-servers
   become: true
   tasks:
     - name: Install python pip
       apt:
-        name: python3-pip        # fixed: python-pip → python3-pip
+        name: python3-pip
         state: present
 
     - name: Install docker
       apt:
-        name: docker.io          # fixed: docker → docker.io (actual package name)
+        name: docker.io
         state: present
 
     - name: Start docker
@@ -19,15 +19,15 @@
         enabled: yes
 
     - name: Install docker python module
-      pip:
-        name: docker             # fixed: docker-py → docker (new name)
+      apt:
+        name: python3-docker
         state: present
 
     - name: Start Application Container
       docker_container:
         name: Java-Test-Application
-        image: "nomanakram29/test-java-application:${DOCKER_TAG}"  # added safe default
+        image: "nomanakram29/test-java-application:${DOCKER_TAG}"
         state: started
         published_ports:
-          - "0.0.0.0:8080:8080"   # fixed indentation
-        restart_policy: unless-stopped   # recommended
+          - "0.0.0.0:8080:8080"
+        restart_policy: unless-stopped
