@@ -32,7 +32,7 @@ pipeline{
                 sh "docker push nomanakram29/test-java-application:${DOCKER_TAG}"
             }
         }
-        stage('Deploy Applicaiton via ansible-playbook'){
+        stage('Deploy Applicaiton via Ansible-playbook'){
             steps{
                 ansiblePlaybook credentialsId: 'development-server', disableHostKeyChecking: true, extras: "-e DOCKER_TAG=${DOCKER_TAG}", installation: 'Ansible', inventory: 'server.inv', playbook: 'deploy-application.yml'
             }
