@@ -32,6 +32,11 @@ pipeline{
                 sh "docker push nomanakram29/test-java-application:${DOCKER_TAG}"
             }
         }
+        stage('Docker Push Image'){
+            steps{
+                ansiblePlaybook credentialsId: 'development-server', disableHostKeyChecking: true, extras: "-e DOCKER_TAG=${DOCKER_TAG}", installation: 'Ansible', inventory: 'server.inv', playbook: 'deploy-application.yml'
+            }
+        }
     }
 
 }
