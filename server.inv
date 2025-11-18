@@ -1,2 +1,2 @@
-[developement-servers]
+[development-servers]
 3.229.117.82 ansible_user=ubuntu
